@@ -4,10 +4,54 @@
 
 .renderer {
   max-width: 1000px;
-  height: 500px;
+  height: 300px;
   margin: auto;
+  padding-bottom: 10%;
 }
 
 .view {
   width: 100%;
+}
+
+.gallery {
+  display: flex;
+  justify-content: center;
+  margin: 1rem auto;
+}
+
+.gallery-item {
+  width: 150px;
+  height: 150px;
+  padding: 2rem;
+  background-color: rgb(219, 218, 218);
+  margin: auto 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.gallery-item:active {
+  background-color: black;
+}
+.gallery-item:hover {
+  background-color: silver;
+}
+
+.active {
+  background-color: black !important;
+}
+
+.add-image {
+  padding: 0.5rem 1rem;
+  background-color: silver;
+  border: none;
+  border-radius: 5px;
+  font-size: large;
+}
+
+.add-image:hover {
+  background-color: tomato;
+  color: aliceblue;
+}
+
+.container {
+  margin: 2rem auto;
 }
