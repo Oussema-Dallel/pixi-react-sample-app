@@ -16,7 +16,7 @@ function App() {
   const [activeImage, setActvieImage] = useState(-1);
   const [activeEye, setActiveEye] = useState(null);
   const [editText, setEditText] = useState(false);
-  const [text, setText] = useState("Hahahaha");
+  const [text, setText] = useState("Welcome to my space");
   const [size, setSize] = useState(36);
 
   const changeText = () => {
@@ -68,7 +68,13 @@ function App() {
     setActiveEye({ ...activeEye, visible: !activeEye.visible });
   };
   useEffect(() => {
-    app = new PIXI.Application({ antialias: true });
+    console.log(
+      "welcome to pixi and react playground -- please don't mind the code as this is just an experementation of a few hours"
+    );
+    app = new PIXI.Application({
+      antialias: true,
+      backgroundColor: 0x323232,
+    });
     app.renderer.autoResize = true;
     app.renderer.resize(
       canvasElement.current.clientWidth,
@@ -77,11 +83,9 @@ function App() {
     app.renderer.view.classList.add("view");
     canvasElement.current.appendChild(app.view);
     const newText = new PIXI.Text(text, {
-      fontFamily: "Arial",
+      fontFamily: "Naruto",
       fontSize: 36,
-      fontStyle: "italic",
-      fontWeight: "bold",
-      fill: ["#ffffff", "#00ff99"], // gradient
+      fill: ["#ffffff", "#FF4C4C"], // gradient
       stroke: "#4a1850",
       strokeThickness: 5,
       dropShadow: true,
@@ -99,11 +103,10 @@ function App() {
       setEditText(true);
       activeText = newText;
     });
-    newText.position.set(100, 50);
+    newText.position.set(100, 25);
     app.stage.addChild(newText);
     app.loader.add(sceneImages).load((loader, resources) => {
       Object.keys(resources).map((obj, index) => {
-        console.log(index);
         const eye = new PIXI.Sprite(resources[obj].texture);
         eye.interactive = true;
         eye.buttonMode = true;
@@ -150,25 +153,43 @@ function App() {
             </div>
           ))}
         </div>
+        <div className="eye-edit">
+          {activeEye || activeImage !== -1 ? <h3>manipulate eyes : </h3> : null}
+          {activeEye !== null ? (
+            <button className="btn-custom toggle-status" onClick={toggleShow}>
+              {activeEye.visible ? "Hide" : "Show"}
+            </button>
+          ) : null}
+          {activeImage !== -1 ? (
+            <button className="btn-custom add-image" onClick={addElements}>
+              Add
+            </button>
+          ) : null}
+        </div>
         {editText ? (
-          <>
+          <div className="edit">
+            <h3>edit text :</h3>
             <input
+              className="text-edit"
               type="text"
               value={text}
               onChange={(e) => setText(e.target.value)}
             />
-            <input type="range" value={size} onChange={changeSize} min={1} />{" "}
-          </>
-        ) : null}
-        {activeEye !== null ? (
-          <button onClick={toggleShow}>
-            {activeEye.visible ? "Hide" : "Show"}
-          </button>
-        ) : null}
-        {activeImage !== -1 ? (
-          <button className="add-image" onClick={addElements}>
-            Add
-          </button>
+            <input
+              type="range"
+              value={size}
+              onChange={changeSize}
+              min={1}
+              max={72}
+            />{" "}
+            <span className="size">{size}</span>
+            <button
+              className="btn-custom confirm"
+              onClick={() => setEditText(false)}
+            >
+              confirm
+            </button>
+          </div>
         ) : null}
       </div>
       <div ref={canvasElement} className="renderer"></div>
