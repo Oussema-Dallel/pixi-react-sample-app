@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Getting Started with React and PixiJs
 
 This project is for the sole purpose to investigate how well pixi.js integrates with react without reliance on third party packages. 
 
